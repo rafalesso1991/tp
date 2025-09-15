@@ -1,3 +1,9 @@
+package juego.data;
+
+import juego.personajes.*;
+import juego.enums.Raza;
+import juego.enums.Rol;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

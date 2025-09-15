@@ -1,3 +1,5 @@
+package juego.enums;
+
 public enum Raza {
     HUMANO,
     ELFO,

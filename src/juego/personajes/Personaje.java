@@ -1,3 +1,8 @@
+package juego.personajes;
+
+import juego.enums.Raza;
+import juego.enums.Rol;
+
 import java.util.random.RandomGenerator;
 // CLASE "PADRE"
 public abstract class Personaje {

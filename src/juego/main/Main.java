@@ -1,7 +1,14 @@
+package juego.main;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Iterator;
+
+import juego.personajes.*;
+import juego.data.DataHandler;
+import juego.enums.Rol;
+import juego.enums.Raza;
 
 // MAIN CLASS --> Maneja las entradas y la creación del personaje.
 public class Main {

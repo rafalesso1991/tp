@@ -1,3 +1,8 @@
+package juego.personajes;
+
+import juego.enums.Raza;
+import juego.enums.Rol;
+
 // La clase Mago es una clase hija de Personaje.
 // Implementa los métodos abstractos de la clase padre.
 public class Mago  extends Personaje {
