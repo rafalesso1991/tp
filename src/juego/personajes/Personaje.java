@@ -1,12 +1,23 @@
 package juego.personajes;
 
+// Importación de clases
 import juego.enums.Raza;
 import juego.enums.Rol;
 
+// Importación de funciones
 import java.util.random.RandomGenerator;
-// CLASE "PADRE"
+/*
+ABSTRACCIÓN
+Clase abstracta que sirve como modelo para todos los tipos de personajes.
+Define un concepto generalizado de "Personaje" sin necesidad de ser instanciado.
+
+HERENCIA
+Se definen los atributos y métodos comunes, que luego se heredan a las subclases de tipo 'rol'.
+*/
 public abstract class Personaje {
-    // ATRIBUTOS
+
+    // ENCAPSULAMIENTO
+    // El modificador 'private' se utiliza para encapsular atributos del personaje.
     private String nombre;
     private Raza raza; // tipo "raza"
     private Rol rol; // tipo "rol"
@@ -14,7 +25,8 @@ public abstract class Personaje {
     private int agilidad;
     private int inteligencia;
     private int voluntad;
-    // ATRIBUTO ESTÁTICO para DEFINIR un N° ALEATORIO del DADO
+
+    // Atributo estático para definir un n° aleatorio del dado
     private static final RandomGenerator dado = RandomGenerator.getDefault();
 
     public Personaje(
@@ -35,7 +47,7 @@ public abstract class Personaje {
         this.voluntad = voluntad;
     }
 
-    // GETTERS
+    // Metodos públicos GETTER para el acceso controlado a atributos privados.
     public String getNombre() {
         return nombre;
     }
@@ -74,6 +86,7 @@ public abstract class Personaje {
             System.out.println("Fallo. " + getNombre() + " no logra golpear al enemigo.");
         }
     }
+
     public void disparar() {
         int tirada = tirarDado();
         int total = tirada + agilidad;
@@ -84,6 +97,7 @@ public abstract class Personaje {
             System.out.println("Fallo. " + getNombre() + " no logra acertar al enemigo.");
         }
     }
+
     public void pensar() {
         int tirada = tirarDado();
         int total = tirada + inteligencia;
@@ -94,6 +108,7 @@ public abstract class Personaje {
             System.out.println("Fallo. " + getNombre() + " no se le ocurre ninguna idea.");
         }
     }
+
     public void convencer() {
         int tirada = tirarDado();
         int total = tirada + voluntad;
@@ -104,7 +119,11 @@ public abstract class Personaje {
             System.out.println("Fallo. " + getNombre() + " no logra convencer al aliado.");
         }
     }
+
+    // POLIMORFISMO
+    // Uso de clases abstractas
     public abstract void hacerAccionEspecial();
 
+    // Este metodo abstracto devuelve el nombre de la acción especial, lo que permite in generar un menú dinámico.
     public abstract String getAccionEspecial();
 }

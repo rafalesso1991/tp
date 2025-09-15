@@ -1,9 +1,11 @@
 package juego.data;
 
+// Importación de clases
 import juego.personajes.*;
 import juego.enums.Raza;
 import juego.enums.Rol;
 
+// Importación de funciones
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -13,25 +15,37 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// Persistencia de datos.
+// Gestiona operaciones de I/O de archivos para guardar y cargar una lista de personajes.
 public class DataHandler {
 
     public static void guardarTodosLosPersonajes(List<Personaje> personajes, String nombreArchivo) {
+
+        // Manejo de excepciones.
+        // Las clases FileWriter y PrintWriter se utilizan para escribir los datos de los Personajes en un archivo de texto.
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo, false))) { // Using false to overwrite the file
             for (Personaje personaje : personajes) {
                 writer.println(personaje.getNombre() + "," + personaje.getRaza().toString() + "," + personaje.getRol().toString() + "," +
                         personaje.getFuerza() + "," + personaje.getAgilidad() + "," + personaje.getInteligencia() + "," + personaje.getVoluntad());
             }
-            System.out.println("Todos los personajes guardados en " + nombreArchivo);
+            System.out.println("Todos los personajes guardados en " + nombreArchivo + ".");
         } catch (IOException e) {
             System.out.println("Ocurrio un error al guardar los personajes.");
         }
     }
 
+    /*
+     Cargar personajes de un archivo de texto y los devuelve como una lista.
+     'param' => nombreArchivo: El nombre del archivo desde el que se cargará.
+     'return' => Lista de objetos 'Personaje' cargados.
+     */
     public static List<Personaje> cargarTodosLosPersonajes(String nombreArchivo) {
 
+        // Usamos un ArrayList para almacenar los personajes a medida que los cargamos.
         List<Personaje> personajesCargados = new ArrayList<>();
         File file = new File(nombreArchivo);
 
+        // Manejo de excepciones.
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
@@ -45,7 +59,8 @@ public class DataHandler {
                     int inteligencia = Integer.parseInt(parts[5]);
                     int voluntad = Integer.parseInt(parts[6]);
 
-                    // Crea una instancia de la clase de personaje específica según la profesión elegida.
+                    // POLIMORFISMO
+                    // Instancia la subclase de personaje según el rol elegido.
                     switch (rol) {
                         case GUERRERO:
                             personajesCargados.add(new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad));
@@ -62,13 +77,15 @@ public class DataHandler {
                     }
                 }
             }
+
         } catch (FileNotFoundException e) {
             System.out.println("Archivo no encontrado: " + nombreArchivo);
+
         } catch (IllegalArgumentException e) {
             System.out.println("Error al analizar los datos del archivo. El archivo podría estar dañado.");
-
             return new ArrayList<>();
         }
+
         return personajesCargados;
     }
 }

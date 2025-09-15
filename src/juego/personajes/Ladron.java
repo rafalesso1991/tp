@@ -1,26 +1,28 @@
 package juego.personajes;
 
+// Importación de clases
 import juego.enums.Raza;
 import juego.enums.Rol;
 
-// La clase Ladron es una clase hija de Personaje.
-// Implementa los métodos abstractos de la clase padre.
+// HERENCIA
+// Implementa los atributos y mét.odos comunes de la clase Personaje
+
 public class Ladron  extends Personaje {
     public Ladron(String nombre, Raza raza, int fuerza, int agilidad, int inteligencia, int voluntad) {
-        // Llama al constructor padre para setear los atributos.
+
+        // Llama al Constructor de la clase padre
         super(nombre, raza, Rol.LADRON, fuerza, agilidad, inteligencia, voluntad);
     }
 
-    // --- APLICACIÓN DE POO: REDEFINICIÓN (SOBRESCRITURA) DE MÉTODOS Y POLIMORFISMO ---
-    // Este mét.odo proporciona la implementación específica para la acción especial del Ladrón.
-    // Sobrescribe el mét.odo abstracto en la clase Personaje.
+    // POLIMORFISMO
+    // Redefinición del mét.odo abstracto de la clase padre para la acción especial.
+
     @Override
     public void hacerAccionEspecial() {
         // Tira un dado de 20 caras y suma la agilidad del Personaje.
         int tirada = new java.util.Random().nextInt(20) + 1;
         int total = tirada + getAgilidad();
-        System.out.println(getNombre() + " intenta esconderse. Tira el dado y saca " + tirada + " + " + getAgilidad() + ") = " + total);
-
+        System.out.println(getNombre() + " intenta esconderse. Tira el dado y saca " + tirada + " + " + getAgilidad() + " = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " logra esconderse y no puede ser atacado el próximo turno.");
         } else {
@@ -28,7 +30,6 @@ public class Ladron  extends Personaje {
         }
     }
 
-    // Este met.odo devuelve el nombre de la acción especial del Ladrón para el menú.
     @Override
     public String getAccionEspecial() {
         return "esconderse";
