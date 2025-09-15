@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Iterator;
 
 // MAIN CLASS --> Maneja las entradas y la creación del personaje.
 public class Main {
@@ -102,13 +103,13 @@ public class Main {
                         System.out.println("Tu grupo está vacío, crea un personaje primero.");
                     } else {
                         System.out.println("\n--- GRUPO ACTUAL ---");
-                        for (int i = 0; i < grupoDePersonajes.size(); i++) {
-                            Personaje personaje = grupoDePersonajes.get(i);
-                            System.out.println((i + 1) + ". " + personaje.getNombre() + " (" + personaje.getRaza() + " " + personaje.getRol() + ")");
+                        Iterator<Personaje> iterador = grupoDePersonajes.iterator();
+                        while (iterador.hasNext()) {
+                            Personaje personaje = iterador.next();
+                            System.out.println(personaje.getNombre() + " (" + personaje.getRaza() + " " + personaje.getRol() + ")");
                         }
                     }
                     break;
-
                 case "3":
                     if (grupoDePersonajes.isEmpty()) {
                         System.out.println("Tu grupo está vacío, crea un personaje primero");
