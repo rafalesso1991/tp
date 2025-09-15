@@ -1,6 +1,6 @@
 import java.util.random.RandomGenerator;
 // CLASE "PADRE"
-public class Personaje {
+public abstract class Personaje {
     // ATRIBUTOS
     private String nombre;
     private Raza raza; // tipo "raza"
@@ -99,4 +99,7 @@ public class Personaje {
             System.out.println("Fallo. " + getNombre() + " no logra convencer al aliado.");
         }
     }
+    public abstract void hacerAccionEspecial();
+
+    public abstract String getAccionEspecial();
 }

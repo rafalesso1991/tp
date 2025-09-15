@@ -84,11 +84,11 @@ public class Main {
 
             while (true) {
                 System.out.println("\n--- ¿Qué quieres hacer en tu turno? ---");
-                System.out.println("Acciones: golpear, disparar, pensar, convencer, especial, guardar, salir");
+                System.out.println("Acciones: golpear, disparar, pensar, convencer, " + nuevoPersonaje.getAccionEspecial() + ", guardar, salir");
                 System.out.print("Escribe tu elección: ");
                 String accion = scanner.nextLine().toLowerCase();
 
-                // Use a switch statement to perform an action based on the user's choice.
+                // Declaración "switch" para elegir una acción.
                 switch (accion) {
                     case "golpear":
                         nuevoPersonaje.golpear();
@@ -102,16 +102,12 @@ public class Main {
                     case "convencer":
                         nuevoPersonaje.convencer();
                         break;
-                    case "especial":
-                        if (nuevoPersonaje instanceof Guerrero) {
-                            ((Guerrero) nuevoPersonaje).bloquearConEscudo();
-                        } else if (nuevoPersonaje instanceof Mago) {
-                            ((Mago) nuevoPersonaje).lanzarConjuro();
-                        } else if (nuevoPersonaje instanceof Ladron) {
-                            ((Ladron) nuevoPersonaje).esconderseConAgilidad();
-                        } else if (nuevoPersonaje instanceof Sacerdote) {
-                            ((Sacerdote) nuevoPersonaje).rezarConVoluntad();
-                        }
+                    // La acción especial se llama directamente a través de una llamada de mét.odo polimórfico.
+                    case "bloquear":
+                    case "conjurar":
+                    case "esconderse":
+                    case "rezar":
+                        nuevoPersonaje.hacerAccionEspecial();
                         break;
                     case "guardar":
                         DataHandler.guardarPersonaje(nuevoPersonaje, "personajes.txt");
