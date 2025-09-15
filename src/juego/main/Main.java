@@ -12,7 +12,7 @@ import juego.data.DataHandler;
 import juego.enums.Rol;
 import juego.enums.Raza;
 
-// CLASE PRINCIPAL
+// MENÚ PRINCIPAL => Interfaz que permite al usuario realizar diversas operaciones en una misma sesión
 public class Main {
     public static void main(String[] args) {
 
@@ -46,7 +46,7 @@ public class Main {
 
                     // Bucle hasta que se seleccione una raza válida.
                     while (raza == null) {
-                        System.out.println("Elije una raza (Humano, Elfo, Enano, Orco): ");
+                        System.out.println("Elije una raza (Humano, Elfo, Enano, Orcon Gnomo): ");
                         String razaIngresada = scanner.nextLine().toUpperCase();
 
                         // Manejo de excepciones
@@ -64,7 +64,7 @@ public class Main {
 
                     // Bucle hasta que se seleccione un rol válido.
                     while (rol == null) {
-                        System.out.println("Elije un rol (Guerrero, Mago, Ladron, Sacerdote): ");
+                        System.out.println("Elije un rol (Guerrero, Mago, Ladron, Sacerdote, Bardo): ");
                         String rolIngresado = scanner.nextLine().toUpperCase();
 
                         // Manejo de excepciones
@@ -81,6 +81,7 @@ public class Main {
                     int agilidad = 5;
                     int inteligencia = 5;
                     int voluntad = 5;
+                    int carisma = 5;
 
                     // MODIFICA LOS ATRIBUTOS BÁSICOS DEL PERSONAJE SEGÚN SU RAZA
                     switch (raza) {
@@ -96,6 +97,9 @@ public class Main {
                         case ORCO:
                             fuerza += 2;
                             break;
+                        case GNOMO:
+                            carisma += 2;
+                            break;
                     }
 
                     // CREA UNA INSTANCIA NUEVA DEL OBJETO SEGÚN EL ROL ELEGIDO
@@ -103,17 +107,19 @@ public class Main {
                     switch (rol) {
 
                         case GUERRERO:
-                            nuevoPersonaje = new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad);
+                            nuevoPersonaje = new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
                             break;
                         case MAGO:
-                            nuevoPersonaje = new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad);
+                            nuevoPersonaje = new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
                             break;
                         case LADRON:
-                            nuevoPersonaje = new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad);
+                            nuevoPersonaje = new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
                             break;
                         case SACERDOTE:
-                            nuevoPersonaje = new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad);
+                            nuevoPersonaje = new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
                             break;
+                        case BARDO:
+                            nuevoPersonaje = new Bardo(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
                     }
 
                     // Estructura condicional si se ha creado correctamente el personaje
@@ -194,6 +200,10 @@ public class Main {
                                         personajeSeleccionado.pensar();
                                         break;
 
+                                    case "desafiar":
+                                        personajeSeleccionado.desafiar();
+                                        break;
+
                                     case "convencer":
                                         personajeSeleccionado.convencer();
                                         break;
@@ -203,6 +213,7 @@ public class Main {
                                     case "conjurar":
                                     case "esconderse":
                                     case "rezar":
+                                    case "inspirar":
                                         personajeSeleccionado.hacerAccionEspecial();
                                         break;
 

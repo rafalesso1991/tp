@@ -8,10 +8,10 @@ import juego.enums.Rol;
 // Implementa los atributos y mét.odos comunes de la clase Personaje
 
 public class Sacerdote  extends Personaje {
-    public Sacerdote(String nombre, Raza raza, int fuerza, int agilidad, int inteligencia, int voluntad) {
+    public Sacerdote(String nombre, Raza raza, int fuerza, int agilidad, int inteligencia, int voluntad, int carisma) {
 
         // Llama al Constructor de la clase padre
-        super(nombre, raza, Rol.SACERDOTE, fuerza, agilidad, inteligencia, voluntad);
+        super(nombre, raza, Rol.SACERDOTE, fuerza, agilidad, inteligencia, voluntad, carisma);
     }
 
     // POLIMORFISMO

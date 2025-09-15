@@ -25,8 +25,7 @@ public class DataHandler {
         // Las clases FileWriter y PrintWriter se utilizan para escribir los datos de los Personajes en un archivo de texto.
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo, false))) { // Using false to overwrite the file
             for (Personaje personaje : personajes) {
-                writer.println(personaje.getNombre() + "," + personaje.getRaza().toString() + "," + personaje.getRol().toString() + "," +
-                        personaje.getFuerza() + "," + personaje.getAgilidad() + "," + personaje.getInteligencia() + "," + personaje.getVoluntad());
+                writer.println(personaje.getNombre() + "," + personaje.getRaza().toString() + "," + personaje.getRol().toString() + "," + personaje.getFuerza() + "," + personaje.getAgilidad() + "," + personaje.getInteligencia() + "," + personaje.getVoluntad() + "," + personaje.getCarisma());
             }
             System.out.println("Todos los personajes guardados en " + nombreArchivo + ".");
         } catch (IOException e) {
@@ -50,7 +49,7 @@ public class DataHandler {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                if (parts.length == 7) {
+                if (parts.length == 8) {
                     String nombre = parts[0];
                     Raza raza = Raza.valueOf(parts[1]);
                     Rol rol = Rol.valueOf(parts[2]);
@@ -58,21 +57,25 @@ public class DataHandler {
                     int agilidad = Integer.parseInt(parts[4]);
                     int inteligencia = Integer.parseInt(parts[5]);
                     int voluntad = Integer.parseInt(parts[6]);
+                    int carisma = Integer.parseInt(parts[7]);
 
                     // POLIMORFISMO
                     // Instancia la subclase de personaje según el rol elegido.
                     switch (rol) {
                         case GUERRERO:
-                            personajesCargados.add(new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad));
+                            personajesCargados.add(new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma));
                             break;
                         case MAGO:
-                            personajesCargados.add(new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad));
+                            personajesCargados.add(new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma));
                             break;
                         case LADRON:
-                            personajesCargados.add(new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad));
+                            personajesCargados.add(new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma));
                             break;
                         case SACERDOTE:
-                            personajesCargados.add(new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad));
+                            personajesCargados.add(new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma));
+                            break;
+                        case BARDO:
+                            personajesCargados.add(new Bardo(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma));
                             break;
                     }
                 }

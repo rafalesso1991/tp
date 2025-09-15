@@ -4,5 +4,6 @@ public enum Rol {
     GUERRERO,
     MAGO,
     LADRON,
-    SACERDOTE
+    SACERDOTE,
+    BARDO
 }

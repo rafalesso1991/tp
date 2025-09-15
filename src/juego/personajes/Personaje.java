@@ -25,6 +25,7 @@ public abstract class Personaje {
     private int agilidad;
     private int inteligencia;
     private int voluntad;
+    private int carisma;
 
     // Atributo estático para definir un n° aleatorio del dado
     private static final RandomGenerator dado = RandomGenerator.getDefault();
@@ -36,7 +37,8 @@ public abstract class Personaje {
             int fuerza,
             int agilidad,
             int inteligencia,
-            int voluntad)
+            int voluntad,
+            int carisma)
     {
         this.nombre = nombre;
         this.raza = raza;
@@ -45,6 +47,7 @@ public abstract class Personaje {
         this.agilidad = agilidad;
         this.inteligencia = inteligencia;
         this.voluntad = voluntad;
+        this.carisma = carisma;
     }
 
     // Metodos públicos GETTER para el acceso controlado a atributos privados.
@@ -68,6 +71,9 @@ public abstract class Personaje {
     }
     public int getVoluntad() {
         return voluntad;
+    }
+    public int getCarisma() {
+        return carisma;
     }
 
     // METODO TIRAR DADO
@@ -109,10 +115,21 @@ public abstract class Personaje {
         }
     }
 
-    public void convencer() {
+    public void desafiar() {
         int tirada = tirarDado();
         int total = tirada + voluntad;
-        System.out.println(getNombre() + " trata de convencer a un aliado para que lo ayude. " + tirada + " + " + voluntad + " = " + total);
+        System.out.println(getNombre() + " intenta desafiar a su enemigo. Tira el dado y saca: " + tirada + " + " + voluntad + " = " + total);
+        if (total >= 15) {
+            System.out.println("¡Éxito! " + getNombre() + " retó al enemigo a un duelo individual.");
+        } else {
+            System.out.println("Fallo. " + getNombre() + " es ignorado por el enemigo.");
+        }
+    }
+
+    public void convencer() {
+        int tirada = tirarDado();
+        int total = tirada + carisma;
+        System.out.println(getNombre() + " trata de convencer a un aliado para que lo ayude. " + tirada + " + " + carisma + " = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " logra convencer a un aliado para que lo ayude.");
         } else {

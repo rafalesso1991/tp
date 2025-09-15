@@ -8,10 +8,10 @@ import juego.enums.Rol;
 // Implementa los atributos y mét.odos comunes de la clase Personaje
 
 public class Guerrero  extends Personaje {
-    public Guerrero(String nombre, Raza raza, int fuerza, int agilidad, int inteligencia, int voluntad) {
+    public Guerrero(String nombre, Raza raza, int fuerza, int agilidad, int inteligencia, int voluntad, int carisma) {
 
         // Llama al Constructor de la clase padre
-        super(nombre, raza, Rol.GUERRERO, fuerza, agilidad, inteligencia, voluntad);
+        super(nombre, raza, Rol.GUERRERO, fuerza, agilidad, inteligencia, voluntad, carisma);
     }
 
     // POLIMORFISMO
