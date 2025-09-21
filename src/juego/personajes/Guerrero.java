@@ -25,6 +25,7 @@ public class Guerrero  extends Personaje {
         System.out.println(getNombre() + " trata de bloquear con su escudo. Tira el dado y saca " + tirada + " + " + getFuerza() + ") = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " bloquea el ataque y lo reduce en " + getFuerza() + " de daño.");
+            sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no consigue bloquear el ataque.");
         }
