@@ -25,6 +25,7 @@ public class Mago  extends Personaje {
         System.out.println(getNombre() + " intenta lanzar un conjuro. Tira el dado y saca " + tirada + " + " + getInteligencia() + " = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " lanza una bola de fuego y hace " + getInteligencia() + " de daño.");
+              sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no consigue lanzar el conjuro.");
         }
