@@ -183,7 +183,7 @@ public class Main {
 
                                 // POLIMORFISMO
                                 // El nombre de la acción especial se obtiene del objeto de la subclase elegida
-                                System.out.println("Acciones: golpear, disparar, pensar, convencer, " + personajeSeleccionado.getAccionEspecial() + ", guardar, salir");
+                                System.out.println("Acciones: golpear, disparar, pensar, desafiar ,convencer, " + personajeSeleccionado.getAccionEspecial() + ", guardar, salir");
 
                                 System.out.print("Escribe tu elección: ");
                                 String action = scanner.nextLine().toLowerCase();
@@ -265,7 +265,11 @@ public class Main {
 
                                         for (Personaje personaje : grupoDePersonajes) {
                                             if (personaje.getNombre().equalsIgnoreCase(nombreEnemigoDesafiar)) {
-                                                personajeSeleccionado.desafiar(personaje);
+                                                boolean desafio = personajeSeleccionado.desafiar(personaje);
+                                                if (desafio && personaje.getVida() <= 0) {
+                                                    System.out.println(personaje.getNombre() + " ha sido derrotado.");
+                                                    grupoDePersonajes.remove(personaje);
+                                                }
                                                 break;
                                             }
                                         }
