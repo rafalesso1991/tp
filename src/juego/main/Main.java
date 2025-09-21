@@ -18,7 +18,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        // Manejo de ArrayList
+        // Manejo de ArrayList1
         // Esta ArrayList almacenará los personajes creados durante la sesión.
         List<Personaje> grupoDePersonajes = new ArrayList<>();
 
@@ -46,7 +46,7 @@ public class Main {
 
                     // Bucle hasta que se seleccione una raza válida.
                     while (raza == null) {
-                        System.out.println("Elije una raza (Humano, Elfo, Enano, Orcon Gnomo): ");
+                        System.out.println("Elije una raza (Humano, Elfo, Enano, Orco, Gnomo): ");
                         String razaIngresada = scanner.nextLine().toUpperCase();
 
                         // Manejo de excepciones
@@ -82,6 +82,8 @@ public class Main {
                     int inteligencia = 5;
                     int voluntad = 5;
                     int carisma = 5;
+                    int vida = 40;
+
 
                     // MODIFICA LOS ATRIBUTOS BÁSICOS DEL PERSONAJE SEGÚN SU RAZA
                     switch (raza) {
@@ -107,19 +109,19 @@ public class Main {
                     switch (rol) {
 
                         case GUERRERO:
-                            nuevoPersonaje = new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
+                            nuevoPersonaje = new Guerrero(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma, vida);
                             break;
                         case MAGO:
-                            nuevoPersonaje = new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
+                            nuevoPersonaje = new Mago(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma, vida);
                             break;
                         case LADRON:
-                            nuevoPersonaje = new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
+                            nuevoPersonaje = new Ladron(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma, vida);
                             break;
                         case SACERDOTE:
-                            nuevoPersonaje = new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
+                            nuevoPersonaje = new Sacerdote(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma, vida);
                             break;
                         case BARDO:
-                            nuevoPersonaje = new Bardo(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma);
+                            nuevoPersonaje = new Bardo(nombre, raza, fuerza, agilidad, inteligencia, voluntad, carisma, vida);
                     }
 
                     // Estructura condicional si se ha creado correctamente el personaje
@@ -182,18 +184,67 @@ public class Main {
                                 // POLIMORFISMO
                                 // El nombre de la acción especial se obtiene del objeto de la subclase elegida
                                 System.out.println("Acciones: golpear, disparar, pensar, convencer, " + personajeSeleccionado.getAccionEspecial() + ", guardar, salir");
+
                                 System.out.print("Escribe tu elección: ");
                                 String action = scanner.nextLine().toLowerCase();
+
 
                                 switch (action) {
 
                                     // ACCIONES COMUNES
                                     case "golpear":
-                                        personajeSeleccionado.golpear();
+                                        System.out.println("Contra quien quieres realizar tu accion?");
+                                        // muestra los personajes de la lista (sin el elegido para realizar la accion)
+
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (!personaje.getNombre().equals(personajeSeleccionado.getNombre())) {
+                                                System.out.println("- " + personaje.getNombre() + " (" + personaje.getRaza() + " " + personaje.getRol() + ")");
+                                            }
+                                        }
+                                        // seleccionar el elemento de la lista
+                                        System.out.print("Escribí el nombre del enemigo: ");
+                                        String nombreEnemigo = scanner.nextLine();
+
+                                        // busca los personajes de la lista hasta encontrar el que matchea con el nombre del enemigo
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (personaje.getNombre().equalsIgnoreCase(nombreEnemigo)) {
+                                                // realizo la accion contra el enemigo
+                                                boolean golpeo = personajeSeleccionado.golpear(personaje);
+                                                // si el enemigo se quedo sin vidas, lo elimino de la lista
+                                                if (golpeo && personaje.getVida() <= 0) {
+                                                    System.out.println(personaje.getNombre() + " ha sido derrotado.");
+                                                    grupoDePersonajes.remove(personaje);
+                                                }
+                                                break;
+                                            }
+                                        }
+
                                         break;
 
                                     case "disparar":
-                                        personajeSeleccionado.disparar();
+
+                                        System.out.println("Contra quien quieres realizar tu accion?");
+
+
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (!personaje.getNombre().equals(personajeSeleccionado.getNombre())) {
+                                                System.out.println("- " + personaje.getNombre() + " (" + personaje.getRaza() + " " + personaje.getRol() + ")");
+                                            }
+                                        }
+                                        System.out.print("Escribí el nombre del enemigo: ");
+                                        String nombreEnemigoDisparar = scanner.nextLine();
+
+
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (personaje.getNombre().equalsIgnoreCase(nombreEnemigoDisparar)) {
+                                                boolean disparo = personajeSeleccionado.disparar(personaje);
+                                                if (disparo && personaje.getVida() <= 0) {
+                                                    System.out.println(personaje.getNombre() + " ha sido derrotado.");
+                                                    grupoDePersonajes.remove(personaje);
+                                                }
+                                                break;
+                                            }
+                                        }
                                         break;
 
                                     case "pensar":
@@ -201,7 +252,23 @@ public class Main {
                                         break;
 
                                     case "desafiar":
-                                        personajeSeleccionado.desafiar();
+                                        System.out.println("Contra quien quieres realizar tu accion?");
+
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (!personaje.getNombre().equals(personajeSeleccionado.getNombre())) {
+                                                System.out.println("- " + personaje.getNombre() + " (" + personaje.getRaza() + " " + personaje.getRol() + ")");
+                                            }
+                                        }
+                                        System.out.print("Escribí el nombre del enemigo: ");
+                                        String nombreEnemigoDesafiar = scanner.nextLine();
+
+
+                                        for (Personaje personaje : grupoDePersonajes) {
+                                            if (personaje.getNombre().equalsIgnoreCase(nombreEnemigoDesafiar)) {
+                                                personajeSeleccionado.desafiar(personaje);
+                                                break;
+                                            }
+                                        }
                                         break;
 
                                     case "convencer":
