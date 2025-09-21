@@ -25,6 +25,7 @@ public class Ladron  extends Personaje {
         System.out.println(getNombre() + " intenta esconderse. Tira el dado y saca " + tirada + " + " + getAgilidad() + " = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " logra esconderse y no puede ser atacado el próximo turno.");
+              sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no consigue un buen escondite.");
         }
