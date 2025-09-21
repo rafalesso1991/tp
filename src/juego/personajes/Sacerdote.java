@@ -25,6 +25,7 @@ public class Sacerdote  extends Personaje {
         System.out.println(getNombre() + " intenta rezar. Tira el dado y saca " + tirada + " + " + getVoluntad() + " = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " reza con convicción y se cura " + getVoluntad() + " de daño.");
+              sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no logra obtener ayuda divina.");
         }
