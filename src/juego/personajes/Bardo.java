@@ -25,6 +25,7 @@ public class Bardo  extends Personaje {
         System.out.println(getNombre() + " canta para inspirar a su grupo. Tira el dado y saca " + tirada + " + " + getFuerza() + ") = " + total);
         if (total >= 15) {
             System.out.println("¡Éxito! " + getNombre() + " inspira un gran valor en sus compañeros.");
+              sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " desafina y no logra inspirar a su grupo.");
         }
