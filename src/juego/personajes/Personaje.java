@@ -26,6 +26,7 @@ public abstract class Personaje {
     private int inteligencia;
     private int voluntad;
     private int carisma;
+    private int vida;
 
     // Atributo estático para definir un n° aleatorio del dado
     private static final RandomGenerator dado = RandomGenerator.getDefault();
@@ -38,7 +39,8 @@ public abstract class Personaje {
             int agilidad,
             int inteligencia,
             int voluntad,
-            int carisma)
+            int carisma,
+            int vida)
     {
         this.nombre = nombre;
         this.raza = raza;
@@ -48,6 +50,7 @@ public abstract class Personaje {
         this.inteligencia = inteligencia;
         this.voluntad = voluntad;
         this.carisma = carisma;
+        this.vida = vida;
     }
 
     // Metodos públicos GETTER para el acceso controlado a atributos privados.
@@ -63,44 +66,68 @@ public abstract class Personaje {
     public int getFuerza() {
         return fuerza;
     }
-    public int getAgilidad() {
-        return agilidad;
-    }
+    public int getAgilidad() {return agilidad;}
     public int getInteligencia() {
         return inteligencia;
     }
     public int getVoluntad() {
         return voluntad;
     }
-    public int getCarisma() {
-        return carisma;
-    }
+    public int getCarisma() {return carisma; }
+    public int getVida() { return vida; }
 
     // METODO TIRAR DADO
     private int tirarDado() {
         return dado.nextInt(20) + 1;
     }
 
-    // METODOS COMUNES
-    public void golpear() {
-        int tirada = tirarDado();
-        int total = tirada + fuerza;
-        System.out.println(getNombre() + " intenta golpear al enemigo. " + tirada + " + " + fuerza + " = " + total);
-        if (total >= 15) {
-            System.out.println("¡Éxito! " + getNombre() + " golpea a su enemigo y le hace " + getFuerza() + "de daño");
-        } else {
-            System.out.println("Fallo. " + getNombre() + " no logra golpear al enemigo.");
+    public void restarVida(int cantidad) {
+      vida-= cantidad;
+
+        if (vida < 0) {
+            vida = 0;
+            System.out.println("Victoria!" + getNombre() + " no tiene mas vidas. Personaje eliminado del juego");
         }
+        else
+        {
+            System.out.println("Lo hiciste con éxito! " + getNombre() + " Ahora tiene " + vida + " vidas.");
+        }
+
     }
 
-    public void disparar() {
+    public void sumarVida(int cantidad) {
+        vida+= cantidad;
+
+            System.out.println("Lo hiciste con éxito! Sumaste " + cantidad + " vidas a " + getNombre() + ". Ahora tienes " + vida + "  vidas.");
+
+    }
+
+    // METODOS COMUNES
+    public boolean golpear(Personaje enemigo) {
+        int tirada = tirarDado();
+        int total = tirada + fuerza;
+
+        System.out.println(getNombre() + " intenta golpear al enemigo. Con " + total + " de daño");
+        if (total >= 15) {
+           enemigo.restarVida(total);
+           return true;
+        } else {
+            System.out.println("Fallo. " + getNombre() + " no logra golpear al enemigo.");
+        return false;
+        }
+
+    }
+
+    public boolean disparar(Personaje enemigo) {
         int tirada = tirarDado();
         int total = tirada + agilidad;
         System.out.println(getNombre() + " dispara al enemigo. " + tirada + " + " + agilidad + " = " + total);
         if (total >= 15) {
-            System.out.println("¡Éxito! " + getNombre() + " acierta a su enemigo y le hace " + getAgilidad() + "de daño");
+           enemigo.restarVida(total);
+            return true;
         } else {
             System.out.println("Fallo. " + getNombre() + " no logra acertar al enemigo.");
+            return false;
         }
     }
 
@@ -108,21 +135,26 @@ public abstract class Personaje {
         int tirada = tirarDado();
         int total = tirada + inteligencia;
         System.out.println(getNombre() + " trata de pensar en una idea para ganar. " + tirada + " + " + inteligencia + " = " + total);
+
         if (total >= 15) {
-            System.out.println("¡Éxito! " + getNombre() + " ha pensado en una excelente idea.");
+            sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no se le ocurre ninguna idea.");
         }
     }
 
-    public void desafiar() {
+    public boolean desafiar( Personaje enemigo) {
         int tirada = tirarDado();
         int total = tirada + voluntad;
         System.out.println(getNombre() + " intenta desafiar a su enemigo. Tira el dado y saca: " + tirada + " + " + voluntad + " = " + total);
         if (total >= 15) {
-            System.out.println("¡Éxito! " + getNombre() + " retó al enemigo a un duelo individual.");
+            enemigo.restarVida(total);
+            sumarVida(total);
+            return true;
         } else {
-            System.out.println("Fallo. " + getNombre() + " es ignorado por el enemigo.");
+            System.out.println("Fallo. " + getNombre() + " es ignorado por el enemigo. Su enemigo suma vidas");
+            enemigo.sumarVida(total);
+            return false;
         }
     }
 
@@ -131,9 +163,10 @@ public abstract class Personaje {
         int total = tirada + carisma;
         System.out.println(getNombre() + " trata de convencer a un aliado para que lo ayude. " + tirada + " + " + carisma + " = " + total);
         if (total >= 15) {
-            System.out.println("¡Éxito! " + getNombre() + " logra convencer a un aliado para que lo ayude.");
+            sumarVida(total);
         } else {
             System.out.println("Fallo. " + getNombre() + " no logra convencer al aliado.");
+
         }
     }
 
