@@ -25,7 +25,7 @@ public class DataHandler {
         // Las clases FileWriter y PrintWriter se utilizan para escribir los datos de los Personajes en un archivo de texto.
         try (PrintWriter writer = new PrintWriter(new FileWriter(nombreArchivo, false))) { // Using false to overwrite the file
             for (Personaje personaje : personajes) {
-                writer.println(personaje.getNombre() + "," + personaje.getRaza().toString() + "," + personaje.getRol().toString() + "," + personaje.getFuerza() + "," + personaje.getAgilidad() + "," + personaje.getInteligencia() + "," + personaje.getVoluntad() + "," + personaje.getCarisma());
+                writer.println(personaje.getNombre() + "," + personaje.getRaza().toString() + "," + personaje.getRol().toString() + "," + personaje.getFuerza() + "," + personaje.getAgilidad() + "," + personaje.getInteligencia() + "," + personaje.getVoluntad() + "," + personaje.getCarisma() + "," + personaje.getVida());
             }
             System.out.println("Todos los personajes guardados en " + nombreArchivo + ".");
         } catch (IOException e) {
@@ -49,7 +49,7 @@ public class DataHandler {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(",");
-                if (parts.length == 8) {
+                if (parts.length == 9) {
                     String nombre = parts[0];
                     Raza raza = Raza.valueOf(parts[1]);
                     Rol rol = Rol.valueOf(parts[2]);
