@@ -1,0 +1,34 @@
+DESCRIPCIÓN DEL PROBLEMA:
+Este proyecto es una solución orientada a objetos para un sistema de gestión de personajes en un juego de rol de fantasía medieval.
+Resuelve la necesidad de una aplicación escalable y organizada para crear, gestionar e interactuar con múltiples personajes únicos.
+El sistema permite al usuario crear un grupo de aventureros, cada uno con atributos, razas y roles distintos.
+
+El diseño del programa se basa en varios conceptos fundamentales de programación orientada a objetos (POO).
+
+ABSTRACCIÓN Y HERENCIA:
+El programa utiliza una clase abstracta de personaje que sirve como modelo para todos los tipos de personaje.
+Esta clase define atributos comunes como el nombre y las acciones comunes (golpear, disparar, pensar y convencer) que comparten todos los personajes.
+Roles específicos como Guerrero, Mago, Ladrón, Sacerdote y Bardo se implementan como subclases que heredan de esta clase base, reutilizando código y manteniendo una estructura consistente.
+
+POLIMORFISMO:
+La clase Personaje incluye métodos abstractos para 'hacerAcciónEspecial()' y 'getAccionEspecial()'.
+Cada subclase sobrescribe estos métodos para proporcionar su propio comportamiento y nombre.
+Esto permite a la clase Padre llamar a un único metodo en cualquier objeto de personaje y obtener el resultado correcto,
+sin necesidad de comprobaciones condicionales (p. ej., instanceof).
+
+ENCAPSULAMIENTO
+Los atributos de los personajes se mantienen privados dentro de sus clases, y el acceso se controla mediante métodos getter públicos.
+Esto protege los datos de modificaciones externas no autorizadas.
+
+MODULARIDAD
+El proyecto está organizado en distintos paquetes para mejorar la modularidad y evitar conflictos de nombres.
+
+PERSISTENCIA DE DATOS
+El programa puede guardar y cargar un conjunto de personajes en un archivo de texto.
+Esto se gestiona mediante una clase DataHandler independiente.
+El uso de un ArrayList permite al programa gestionar eficientemente una colección dinámica de personajes,
+y se usa un Iterador para recorrer la lista.
+
+MANEJO DE EXCEPCIONES
+El programa utiliza el manejo de excepciones (bloques try-catch) para administrar las entradas de usuario no válidas y los posibles errores relacionados con los archivos,
+lo que garantiza que el programa no se bloquee y brinde comentarios claros e informativos al usuario.
